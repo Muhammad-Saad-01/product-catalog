@@ -1,4 +1,4 @@
-package net.muhammadsaad.rest.model;
+package net.muhammadsaad.rest.entity;
 
 
 import lombok.AllArgsConstructor;
@@ -28,11 +28,14 @@ public class Product implements Comparable<Product> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank(message = "Product name is required")
     private String name;
+
     @NotNull(message = "Product price is required")
     @Positive(message = "Product price must be greater than zero")
     private BigDecimal price;
+
     @URL(message = "Product image URL is invalid")
     private String imageUrl;
 
@@ -40,6 +43,12 @@ public class Product implements Comparable<Product> {
 
     @Size(max = 1000, message = "Product description must be no more than 1000 characters")
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    private int quantity;
 
     @Override
     public String toString() {
@@ -50,6 +59,7 @@ public class Product implements Comparable<Product> {
                 ", imageUrl=" + imageUrl +
                 ", isAvailable=" + isAvailable +
                 ", description='" + description + '\'' +
+                ", category=" + category +
                 '}';
     }
 
@@ -57,6 +67,4 @@ public class Product implements Comparable<Product> {
     public int compareTo(Product product) {
         return this.getId().compareTo(product.getId());
     }
-
-
 }

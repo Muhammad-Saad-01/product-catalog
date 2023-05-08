@@ -1,10 +1,9 @@
 package net.muhammadsaad.rest.service;
 
-import net.muhammadsaad.rest.model.Product;
+import net.muhammadsaad.rest.entity.Product;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface ProductService {
     List<Product> getAllProducts();

@@ -1,7 +1,7 @@
 package net.muhammadsaad.rest.service;
 
 import net.muhammadsaad.rest.exception.ResourceNotFoundException;
-import net.muhammadsaad.rest.model.Product;
+import net.muhammadsaad.rest.entity.Product;
 import net.muhammadsaad.rest.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

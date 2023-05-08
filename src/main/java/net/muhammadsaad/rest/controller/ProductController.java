@@ -1,7 +1,7 @@
 package net.muhammadsaad.rest.controller;
 
 import net.muhammadsaad.rest.exception.ResourceNotFoundException;
-import net.muhammadsaad.rest.model.Product;
+import net.muhammadsaad.rest.entity.Product;
 import net.muhammadsaad.rest.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,11 +38,18 @@ public class ProductController {
         }
     }
 
+    @PostMapping("/")
+    public ResponseEntity<Product> addProduct(@Validated @RequestBody Product product) {
+        Product savedProduct = productService.addProduct(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
+    }
+    /*
     @PostMapping("/add")
     public ResponseEntity<Product> addProduct(@Validated @RequestBody Product product) {
         Product savedProduct = productService.addProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
+    */
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product update) {
