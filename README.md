@@ -59,62 +59,80 @@ Here's the ERD diagram for the product catalog software, generated using a Merma
 
 ```mermaid
 erDiagram
-    CUSTOMER {
-        id int PK
-        name varchar
-        email varchar
-        password varchar
-    }
-    ADDRESS {
-        id int PK
-        customer_id int FK
-        street varchar
-        city varchar
-        state varchar
-        zip varchar
-    }
-    CATEGORY {
-        id int PK
-        name varchar
-    }
-    PRODUCT {
-        id int PK
-        category_id int FK
-        name varchar
-        description varchar
-        price decimal
-        image_url varchar
-    }
-    ORDER {
-        id int PK
-        customer_id int FK
-        date timestamp
-        status varchar
-        shipping_date timestamp
-        delivery_date timestamp
-    }
-    ORDER_ITEM {
-        id int PK
-        order_id int FK
-        product_id int FK
-        quantity int
-    }
-    SHIPMENT {
-        id int PK
-        order_id int FK
-        tracking_number varchar
-        date timestamp
-        status varchar
+Customer ||--|{ Address : has
+    Customer ||--o{ Order : places
+    Order ||--o{ OrderItem : contains
+    OrderItem }|--|| Product : contains
+    Product }|--|{ Category : "belongs to"
+    Admin ||--o{ Order : manages
+    Order ||--|{ Shipment : has
+    Customer ||--o{ Shipment : "confirms delivery"
+
+    Customer {
+        int id
+        string username
+        string password
+        string email
+        string firstName
+        string lastName
+        datetime registrationDate
     }
 
-    CUSTOMER ||--o{ ADDRESS
-    CUSTOMER ||--o{ ORDER
-    ADDRESS ||--|| CUSTOMER
-    CATEGORY ||--o{ PRODUCT
-    PRODUCT ||--|| CATEGORY
-    ORDER ||--o{ ORDER_ITEM
-    PRODUCT ||--o{ ORDER_ITEM
-    ORDER ||--o{ SHIPMENT
+    Address {
+        int id
+        int customerId
+        string streetAddress
+        string city
+        string state
+        string postalCode
+        string country
+    }
+
+    Order {
+        int id
+        int customerId
+        datetime orderDate
+        datetime shipDate
+        string status
+    }
+
+    OrderItem {
+        int id
+        int orderId
+        int productId
+        int quantity
+        decimal price
+    }
+
+    Product {
+        int id
+        string name
+        string description
+        decimal price
+        int categoryId
+    }
+
+    Category {
+        int id
+        string name
+        string description
+    }
+
+    Admin {
+        int id
+        string username
+        string password
+        string email
+    }
+
+    Shipment {
+        int id
+        int orderId
+        datetime shipDate
+        datetime deliveryDate
+        string status
+    }
+
 ```
 
 ## Data Class Diagram
