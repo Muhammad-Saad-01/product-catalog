@@ -61,7 +61,7 @@ Here's the ERD diagram for the product catalog software, generated using a Merma
 erDiagram
 Customer ||--|{ Address : has
     Customer ||--o{ Order : places
-    Order ||--o{ OrderItem : contains
+    Order ||--|{ OrderItem : contains
     OrderItem }|--|| Product : contains
     Product }|--|{ Category : "belongs to"
     Admin ||--o{ Order : manages
