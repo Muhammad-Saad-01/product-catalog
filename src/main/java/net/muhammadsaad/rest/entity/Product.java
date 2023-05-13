@@ -1,10 +1,7 @@
 package net.muhammadsaad.rest.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.URL;
 
@@ -17,10 +14,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
 @Table(name = "products")
 public class Product implements Comparable<Product> {
@@ -29,19 +23,15 @@ public class Product implements Comparable<Product> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Product name is required")
     private String name;
 
-    @NotNull(message = "Product price is required")
-    @Positive(message = "Product price must be greater than zero")
+
     private BigDecimal price;
 
-    @URL(message = "Product image URL is invalid")
     private String imageUrl;
 
     private Boolean isAvailable;
 
-    @Size(max = 1000, message = "Product description must be no more than 1000 characters")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)

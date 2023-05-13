@@ -1,8 +1,11 @@
-package net.muhammadsaad.rest.service;
+package net.muhammadsaad.rest.service.impl;
 
 import net.muhammadsaad.rest.exception.ResourceNotFoundException;
 import net.muhammadsaad.rest.entity.Product;
+import net.muhammadsaad.rest.mapper.ProductMapper;
+import net.muhammadsaad.rest.model.ProductModel;
 import net.muhammadsaad.rest.repository.ProductRepository;
+import net.muhammadsaad.rest.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,23 +21,10 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
-    @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
 
     @Override
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
-    }
-
-    @Override
-    public Product addProduct(Product product) {
-        return productRepository.save(product);
-    }
-
-    @Override
-    public Product updateProduct(Long id, Product product) {
+    public ProductModel updateProduct(Long id, ProductModel product) {
+        Product product = ProductMapper.toEntity(product);
         Optional<Product> existingProduct = getProductById(id);
         if (existingProduct.isPresent()) {
             product.setId(id);

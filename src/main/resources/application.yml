@@ -29,32 +29,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-    show-sql: false
-  servlet:
-    multipart:
-      max-file-size: 2MB
-      max-request-size: 100MB
-      enabled: true
-  sql:
-    init:
-      mode: always
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  mail:
-    host: localhost
-    port: 1025
-    username: hello
-    password: hello
+    show-sql: true
 
-    properties:
-      mail:
-        smtp:
-          ssl:
-            trust: "*"
-          auth: true
-          starttls:
-            enable: true
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
+#  sql:
+#    init:
+#      mode: always

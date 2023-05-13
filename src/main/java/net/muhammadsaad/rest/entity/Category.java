@@ -1,11 +1,9 @@
 package net.muhammadsaad.rest.entity;
 
 import javax.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import lombok.*;
+import lombok.experimental.Accessors;
 
 
 import javax.persistence.*;
@@ -13,20 +11,19 @@ import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
+@Data
+@Accessors(chain = true)
 @Table(name = "categories")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
-    @NotBlank(message = "Category name is required")
+
     private String name;
+
+    private String description;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Product> products;
@@ -39,3 +36,5 @@ public class Category {
                 '}';
     }
 }
+
+

@@ -43,13 +43,7 @@ public class ProductController {
         Product savedProduct = productService.addProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
-    /*
-    @PostMapping("/add")
-    public ResponseEntity<Product> addProduct(@Validated @RequestBody Product product) {
-        Product savedProduct = productService.addProduct(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
-    }
-    */
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product update) {
