@@ -24,7 +24,7 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -38,23 +38,6 @@ spring:
   sql:
     init:
       mode: always
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  mail:
-    host: localhost
-    port: 1025
-    username: hello
-    password: hello
 
-    properties:
-      mail:
-        smtp:
-          ssl:
-            trust: "*"
-          auth: true
-          starttls:
-            enable: true
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
+
+

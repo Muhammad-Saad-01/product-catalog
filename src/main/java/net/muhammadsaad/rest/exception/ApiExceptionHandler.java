@@ -16,11 +16,6 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(value = { ChangeSetPersister.NotFoundException.class})
-    public ResponseEntity<Object> handleNotFoundException(ChangeSetPersister.NotFoundException ex) {
-        return new ResponseEntity<>("Not found: " + ex.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
     @ExceptionHandler(value = {ResourceNotFoundException.class})
     public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
         return new ResponseEntity<>("Resource not found: " + ex.getMessage(), HttpStatus.NOT_FOUND);

@@ -41,6 +41,8 @@ public class Product implements Comparable<Product> {
 
     private Boolean isAvailable;
 
+    private Boolean isActive;
+
     @Size(max = 1000, message = "Product description must be no more than 1000 characters")
     private String description;
 

@@ -1,11 +1,8 @@
 package net.muhammadsaad.rest.entity;
 
 import javax.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import lombok.*;
 
 
 import javax.persistence.*;
@@ -14,10 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "categories")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class Category {
 
     @Id
@@ -28,8 +22,23 @@ public class Category {
     @NotBlank(message = "Category name is required")
     private String name;
 
+    private String description;
+
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Product> products;
+
+    private Boolean isActive;
+
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+    public Category(String name) {
+        this.name = name;
+    }
+    public Category() {
+
+    }
 
     @Override
     public String toString() {

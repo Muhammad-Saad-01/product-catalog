@@ -2,6 +2,7 @@ package net.muhammadsaad.rest.controller;
 
 import net.muhammadsaad.rest.exception.ResourceNotFoundException;
 import net.muhammadsaad.rest.entity.Product;
+import net.muhammadsaad.rest.model.ProductModel;
 import net.muhammadsaad.rest.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,24 +24,24 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAllProducts() {
+    public List<ProductModel> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        Optional<Product> product = productService.getProductById(id);
+    public ResponseEntity<ProductModel> getProductById(@PathVariable Long id) {
+        ProductModel product = productService.getProductById(id);
 
-        if (product.isPresent()) {
-            return ResponseEntity.ok(product.get());
+        if (product != null) {
+            return ResponseEntity.ok(product);
         } else {
             throw new ResourceNotFoundException("Product not found with id " + id);
         }
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Product> addProduct(@Validated @RequestBody Product product) {
-        Product savedProduct = productService.addProduct(product);
+    @PostMapping
+    public ResponseEntity<ProductModel> addProduct(@Validated @RequestBody ProductModel product) {
+        ProductModel savedProduct = productService.createProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
     /*
@@ -52,32 +53,31 @@ public class ProductController {
     */
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product update) {
-        Optional<Product> existingProduct = productService.getProductById(id);
+    public ResponseEntity<ProductModel> updateProduct(@PathVariable Long id, @RequestBody ProductModel update) {
+        ProductModel existingProduct = productService.getProductById(id);
 
-        if (existingProduct.isEmpty()) {
+        if (existingProduct == null) {
             throw new ResourceNotFoundException("Product not found with id " + id);
         }
 
 
-        Product product = existingProduct.get();
         if (update.getName() != null) {
-            product.setName(update.getName());
+            existingProduct.setName(update.getName());
         }
         if (update.getDescription() != null) {
-            product.setDescription(update.getDescription());
+            existingProduct.setDescription(update.getDescription());
         }
         if (update.getPrice() != null) {
-            product.setPrice(update.getPrice());
+            existingProduct.setPrice(update.getPrice());
         }
         if (update.getIsAvailable() != null) {
-            product.setIsAvailable(update.getIsAvailable());
+            existingProduct.setIsAvailable(update.getIsAvailable());
         }
         if (update.getImageUrl() != null) {
-            product.setImageUrl(update.getImageUrl());
+            existingProduct.setImageUrl(update.getImageUrl());
         }
 
-        Product updatedProduct = productService.updateProduct(id, product);
+        ProductModel updatedProduct = productService.updateProduct(id, existingProduct);
 
         /*
         * but what if there are a lot of properties
